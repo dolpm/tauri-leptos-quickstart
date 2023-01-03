@@ -3,11 +3,8 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen_futures::spawn_local;
 use web_sys::window;
 
-#[wasm_bindgen(module = "/public/glue.js")]
-extern "C" {
-    #[wasm_bindgen(js_name = invokeHello, catch)]
-    pub async fn hello(name: String) -> Result<JsValue, JsValue>;
-}
+#[tauri_glue::bind_command(name = hello)]
+pub async fn hello(name: String) -> Result<JsValue, JsValue>;
 
 #[component]
 pub fn Hello(cx: Scope) -> Element {

@@ -9,8 +9,8 @@ edition = "2021"
 js-sys = "0.3.60"
 leptos = "0.0.22"
 log = "0.4.17"
-wasm-bindgen = "0.2.83"
 wasm-bindgen-futures = "0.4.33"
 wasm-logger = "0.2.0"
 web-sys = "0.3.60"
-tauri-glue = { git = "https://github.com/DPM97/tauri-glue" }
+# tauri-glue = { git = "https://github.com/DPM97/tauri-glue" }
+tauri-glue = { path = "../../tauri-glue" }

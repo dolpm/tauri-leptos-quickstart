@@ -1,5 +1,5 @@
 use leptos::*;
-use wasm_bindgen::prelude::*;
+use tauri_glue::*;
 use wasm_bindgen_futures::spawn_local;
 use web_sys::window;
 

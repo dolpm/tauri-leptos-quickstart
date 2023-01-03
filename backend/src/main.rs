@@ -6,8 +6,8 @@
 use tauri::Manager;
 
 #[tauri::command]
-fn hello(name: &str) -> Result<String, String> {
-    Ok(format!("Hello from Tauri, {name} :P"))
+fn hello(name: Option<&str>) -> Result<String, String> {
+    Ok(format!("Hello from Tauri, {:?} :P", name))
 }
 
 fn main() {

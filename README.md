@@ -9,18 +9,30 @@ No, this combo isn't a be-all-end-all performance wise... It uses some JS glue; 
 
 # Calling the backend
 1. create a tauri command like normal
-2. add the following fn to ```./frontend/public/glue.js```
-   ```
-   export async function invokeMyCommand(paramX, paramY) {
-     return await invoke("my_command_name", { paramX, paramY });
+   ```rust
+   #[tauri::command]
+   fn hello(name: Option<&str>) -> Result<String, String> {
+       Ok(format!("Hello from Tauri, {:?} :P", name))
    }
    ```
-3. create the wasm binding in your frontend file
+2. use tauri-glue to create a binding on the front end:
+   ```rust
+   use tauri_glue::*;
+   
+   #[tauri_glue::bind_command(name = hello)]
+   pub async fn hello(name: Option<String>) -> Result<JsValue, JsValue>;
    ```
-   #[wasm_bindgen(module = "/public/glue.js")]
-   extern "C" {
-       #[wasm_bindgen(js_name = invokeMyCommand, catch)]
-       pub async fn hello(param1: String, param2: i32) -> Result<JsValue, JsValue>;
+3. call the bound function like normal
+   ```rust
+   match hello(Some("example_name_sent_from_frontend".to_string())).await {
+     Ok(message) => {
+         set_name.update(|name| *name = message.as_string().unwrap());
+     }
+     Err(e) => {
+         let window = window().unwrap();
+         window
+             .alert_with_message(&format!("Error: {:?}", e))
+             .unwrap();
+     }
    }
    ```
-1. call hello from the frontend :P

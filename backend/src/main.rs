@@ -4,10 +4,11 @@
 )]
 
 use tauri::Manager;
+use tauri_glue::*;
 
-#[tauri::command]
-fn hello(name: Option<&str>) -> Result<String, String> {
-    Ok(format!("Hello from Tauri, {:?} :P", name))
+#[tauri_glue::command]
+fn hello(name: Option<String>, others: (i32, i32)) -> Result<String, String> {
+    Ok(format!("Hello from Tauri, {:?} {:?} :P", name, others))
 }
 
 fn main() {

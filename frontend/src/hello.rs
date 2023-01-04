@@ -4,7 +4,7 @@ use wasm_bindgen_futures::spawn_local;
 use web_sys::window;
 
 #[tauri_glue::bind_command(name = hello)]
-pub async fn hello(name: Option<String>) -> Result<JsValue, JsValue>;
+pub async fn hello(name: Option<String>, others: (i32, i32)) -> Result<String, String>;
 
 #[component]
 pub fn Hello(cx: Scope) -> Element {
@@ -13,9 +13,9 @@ pub fn Hello(cx: Scope) -> Element {
         <div>
             <div>
               <button on:click=move |_| spawn_local(async move {
-                match hello(Some("example_name_sent_from_frontend".to_string())).await {
+                match hello(Some("example_name_sent_from_frontend".to_string()), (10, 1084)).await {
                     Ok(message) => {
-                        set_name.update(|name| *name = message.as_string().unwrap());
+                        set_name.update(|name| *name = message);
                     }
                     Err(e) => {
                         let window = window().unwrap();

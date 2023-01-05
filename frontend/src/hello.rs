@@ -1,10 +1,11 @@
+use bridge::{MyChildStruct, MyStruct};
 use leptos::*;
 use tauri_glue::*;
 use wasm_bindgen_futures::spawn_local;
 use web_sys::window;
 
 #[tauri_glue::bind_command(name = hello)]
-pub async fn hello(name: Option<String>, others: (i32, i32)) -> Result<String, String>;
+pub async fn hello(name: String, test_struct: MyStruct) -> Result<String, String>;
 
 #[component]
 pub fn Hello(cx: Scope) -> Element {
@@ -13,7 +14,13 @@ pub fn Hello(cx: Scope) -> Element {
         <div>
             <div>
               <button on:click=move |_| spawn_local(async move {
-                match hello(Some("example_name_sent_from_frontend".to_string()), (10, 1084)).await {
+                match hello("example_name_sent_from_frontend".to_string(), MyStruct {
+                    tuple: (i32::MIN, u32::MAX, u64::MAX),
+                    string: "test".to_string(),
+                    child: Some(MyChildStruct {
+                        v: vec![0, 1, 2, 3, 4, 5]
+                    })
+                }).await {
                     Ok(message) => {
                         set_name.update(|name| *name = message);
                     }
@@ -25,7 +32,7 @@ pub fn Hello(cx: Scope) -> Element {
                     }
                 }
             })>"Click me!"</button>
-              <span class="name">{move || name()}</span>
+              <span>{move || name()}</span>
             </div>
         </div>
     }

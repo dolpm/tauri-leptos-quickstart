@@ -15,10 +15,9 @@ rust-version = "1.59"
 tauri-build = { version = "1.2.1", features = [] }
 
 [dependencies]
-serde_json = "1.0"
-serde = { version = "1.0", features = ["derive"] }
+bridge = { path = "../bridge" }
 tauri = { version = "1.2.3", features = ["devtools"] }
-tauri-glue = { path = "../../tauri-glue" }
+tauri-glue = { git = "https://github.com/DPM97/tauri-glue" }
 
 [features]
 # by default Tauri runs in production mode

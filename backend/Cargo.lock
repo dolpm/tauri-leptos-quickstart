@@ -42,8 +42,7 @@ checksum = "2cb2f989d18dd141ab8ae82f64d1a8cdd37e0840f73a406896cf5e99502fab61"
 name = "app"
 version = "0.1.0"
 dependencies = [
- "serde",
- "serde_json",
+ "bridge",
  "tauri",
  "tauri-build",
  "tauri-glue",
@@ -113,6 +112,13 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "69cce20737498f97b993470a6e536b8523f0af7892a4f928cceb1ac5e52ebe7e"
 dependencies = [
  "generic-array",
+]
+
+[[package]]
+name = "bridge"
+version = "0.1.0"
+dependencies = [
+ "serde",
 ]
 
 [[package]]
@@ -1281,6 +1287,7 @@ checksum = "c41e0c4fef86961ac6d6f8a82609f55f31b05e4fce149ac5710e439df7619ba4"
 [[package]]
 name = "macros"
 version = "0.1.0"
+source = "git+https://github.com/DPM97/tauri-glue#9cf0e34115b11318ee45174fcc24425e2d034687"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -2426,6 +2433,7 @@ dependencies = [
 [[package]]
 name = "tauri-glue"
 version = "0.1.0"
+source = "git+https://github.com/DPM97/tauri-glue#9cf0e34115b11318ee45174fcc24425e2d034687"
 dependencies = [
  "bincode",
  "js-sys",

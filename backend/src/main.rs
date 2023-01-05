@@ -3,12 +3,16 @@
     windows_subsystem = "windows"
 )]
 
+use bridge::MyStruct;
 use tauri::Manager;
 use tauri_glue::*;
 
 #[tauri_glue::command]
-fn hello(name: Option<String>, others: (i32, i32)) -> Result<String, String> {
-    Ok(format!("Hello from Tauri, {:?} {:?} :P", name, others))
+fn hello(name: String, test_struct: MyStruct) -> Result<String, String> {
+    Ok(format!(
+        "Hello from Tauri, {:?}! {:#?}",
+        name, test_struct
+    ))
 }
 
 fn main() {
